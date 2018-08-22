@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="  
+        http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
+        http://www.springframework.org/schema/context  
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd">  
+        
+        <!-- <bean id="userService" class="com.server.service.impl.UserService"></bean> -->
+        <context:component-scan base-package="com.fish.service" />
+        <!-- 使用HessianServiceExporter为服务接口Impl在网络地址中映射一个Hessian服务-->  
+    	<!-- 完整的远程调用请求<a href="http://localhost:8080/HessianSpringServer/sr/userService" target="_blank">Url:http://localhost:8080/HessianSpringServer/sr/userService</a>，前部分在web.xml中已经进行了配置 -->  
+        <bean name="/userService" class="org.springframework.remoting.caucho.HessianServiceExporter">  
+            <!-- Hessian服务的接口 -->  
+            <property name="serviceInterface" value="com.fish.service.IUserService"/>  
+            <!-- Hessian服务的接口Impl -->  
+            <property name="service" ref="userService"></property>  
+        </bean>  
+</beans>  
